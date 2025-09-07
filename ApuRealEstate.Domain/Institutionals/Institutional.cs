@@ -1,22 +1,23 @@
 ﻿using System.Globalization;
 using ApuRealEstate.Estate;
 
-namespace ApuRealEstate.Residentials
+namespace ApuRealEstate.Institutionals
 {
     /// <summary>
-    /// Base class for all residential estates (e.g. houses, apartments, villas).
-    /// Provides shared logic and requires subtypes to specify their own m² rate.
+    /// Base class for all institutional estates (e.g. schools, hospitals, universities).
+    /// Locks the estate category to <see cref="Category.Institutional"/> 
+    /// and provides a shared cost model (m² * rate).
     /// </summary>
-    internal abstract class Residential : Estate.Estate
+    public abstract class Institutional : Estate.Estate
     {
         /// <summary>
-        /// Each subtype must specify its own monthly price per m².
+        /// Each subtype must specify its own monthly rate per m².
         /// </summary>
         protected abstract decimal CostPerSquareMeterPerMonth { get; }
 
-        protected Residential() : base() { }
+        protected Institutional() : base() { }
 
-        protected Residential(
+        protected Institutional(
             string id,
             Address address,
             int squareMeters,
@@ -24,23 +25,22 @@ namespace ApuRealEstate.Residentials
             LegalForm legalForm,
             string? imagePath = null,
             Persons.Seller? seller = null)
-            : base(id, address, squareMeters, numOfRooms, legalForm, imagePath, seller)
-        { }
+            : base(id, address, squareMeters, numOfRooms, legalForm, imagePath, seller) { }
 
         /// <summary>
-        /// Numeric monthly cost (m² * rate).
+        /// Numeric monthly accommodation cost (m² * subtype's rate).
         /// </summary>
         public override decimal AccommodationCostPerMonth
             => SquareMeters * CostPerSquareMeterPerMonth;
 
         /// <summary>
-        /// Formatted monthly cost string (culture-aware).
+        /// Formatted cost string, culture-aware.
         /// </summary>
         public override string AccommodationCost()
             => FormatMonthlyCost(AccommodationCostPerMonth);
 
         /// <summary>
-        /// Helper for consistent currency formatting.
+        /// Helper for consistent cost formatting.
         /// </summary>
         protected static string FormatMonthlyCost(decimal amount, CultureInfo? culture = null)
             => string.Create(culture ?? CultureInfo.CurrentCulture, $"{amount:C}/month");

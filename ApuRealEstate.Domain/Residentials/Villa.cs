@@ -2,16 +2,16 @@
 
 namespace ApuRealEstate.Residentials
 {
-    /// <summary>Represents an apartment-type residential estate.</summary>
-    internal sealed class Apartment : Residential
+    /// <summary>Represents a villa-type residential estate.</summary>
+    public class Villa : Residential
     {
-        private const decimal ApartmentRatePerSquareMeter = 85m;
+        private const decimal VillaRatePerSquareMeter = 110m;
 
-        protected override decimal CostPerSquareMeterPerMonth => ApartmentRatePerSquareMeter;
+        protected override decimal CostPerSquareMeterPerMonth => VillaRatePerSquareMeter;
 
-        public Apartment() : base() { }
+        public Villa() : base() { }
 
-        public Apartment(
+        public Villa(
             string id,
             Address address,
             int squareMeters,
@@ -22,13 +22,13 @@ namespace ApuRealEstate.Residentials
             : base(id, address, squareMeters, numOfRooms, legalForm, imagePath, seller) { }
 
         public override string ToString()
-            => $"Apartment · {Address.City}, {Address.Country} · {NumOfRooms} rooms · {SquareMeters} m²";
+            => $"Villa · {Address.City}, {Address.Country} · {NumOfRooms} rooms · {SquareMeters} m²";
 
         public override string GetDescription()
         {
             var seller = Seller is null ? "N/A" : $"{Seller.LastName}, {Seller.FirstName}";
             return $"Seller: {seller}\n" +
-                   $"Apartment at {Address.Street}, {Address.City}.\n" +
+                   $"Villa at {Address.Street}, {Address.City}.\n" +
                    $"Area: {SquareMeters} m², Rooms: {NumOfRooms}\n" +
                    $"Monthly cost: {AccommodationCost()}";
         }

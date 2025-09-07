@@ -3,7 +3,7 @@
 namespace ApuRealEstate.Commercials
 {
     /// <summary>Represents a warehouse-type commercial estate.</summary>
-    internal sealed class Warehouse : Commercial
+    public sealed class Warehouse : Commercial
     {
         private const decimal WarehouseRatePerSquareMeter = 40m;
         private const decimal FixedMonthlyOpsFee = 2000m;

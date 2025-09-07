@@ -8,8 +8,4 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\ApuRealEstate.Domain\ApuRealEstate.Domain.csproj" />
-  </ItemGroup>
-
 </Project>

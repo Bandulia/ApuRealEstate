@@ -2,7 +2,7 @@
 
 namespace ApuRealEstate.Institutionals
 {
-    internal sealed class School : Institutional
+    public sealed class School : Institutional
     {
         protected override decimal CostPerSquareMeterPerMonth => 30m;
 

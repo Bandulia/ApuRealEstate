@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows;
 
-namespace ApuRealEstate.wpf
+namespace ApuRealEstate.Wpf
 {
     /// <summary>
     /// Interaction logic for App.xaml

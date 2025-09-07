@@ -1,24 +1,22 @@
 ﻿using ApuRealEstate.Estate;
 
-namespace ApuRealEstate.Institutionals
+namespace ApuRealEstate.Commercials
 {
-    /// <summary>
-    /// Represents a university-type institutional estate.
-    /// </summary>
-    internal sealed class University : Institutional
+    /// <summary>Represents a shop-type commercial estate.</summary>
+    public sealed class Shop : Commercial
     {
-        private const decimal UniversityRatePerSquareMeter = 60m;
+        private const decimal ShopRatePerSquareMeter = 80m;
 
-        /// <summary>Universities usually have moderate costs per m².</summary>
-        protected override decimal CostPerSquareMeterPerMonth => UniversityRatePerSquareMeter;
+        /// <summary>Shop-specific monthly price per m².</summary>
+        protected override decimal CostPerSquareMeterPerMonth => ShopRatePerSquareMeter;
 
         /// <summary>Numeric monthly cost (explicit override for clarity).</summary>
         public override decimal AccommodationCostPerMonth
             => SquareMeters * CostPerSquareMeterPerMonth;
 
-        public University() : base() { }
+        public Shop() : base() { }
 
-        public University(
+        public Shop(
             string id,
             Address address,
             int squareMeters,
@@ -29,14 +27,14 @@ namespace ApuRealEstate.Institutionals
             : base(id, address, squareMeters, numOfRooms, legalForm, imagePath, seller) { }
 
         public override string ToString()
-            => $"University · {Address.City}, {Address.Country} · {NumOfRooms} rooms · {SquareMeters} m²";
+            => $"Shop · {Address.City}, {Address.Country} · {NumOfRooms} rooms · {SquareMeters} m²";
 
         public override string GetDescription()
         {
             var sellerText = Seller is null ? "N/A" : $"{Seller.LastName}, {Seller.FirstName}";
             return $"Seller: {sellerText}\n" +
-                   $"University located at {Address.Street}, {Address.City}.\n" +
-                   $"Total area: {SquareMeters} m², Rooms: {NumOfRooms}\n" +
+                   $"Shop at {Address.Street}, {Address.City}.\n" +
+                   $"Area: {SquareMeters} m², Rooms: {NumOfRooms}\n" +
                    $"Monthly cost: {AccommodationCost()}";
         }
     }

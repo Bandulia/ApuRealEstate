@@ -2,7 +2,7 @@
 
 namespace ApuRealEstate.Commercials
 {
-    internal sealed class Factory : Commercial
+    public sealed class Factory : Commercial
     {
         protected override decimal CostPerSquareMeterPerMonth => 65m;
 

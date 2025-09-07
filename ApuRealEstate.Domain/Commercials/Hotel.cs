@@ -3,7 +3,7 @@
 namespace ApuRealEstate.Commercials
 {
     /// <summary>Represents a hotel-type commercial estate.</summary>
-    internal sealed class Hotel : Commercial
+    public sealed class Hotel : Commercial
     {
         private const decimal HotelRatePerSquareMeter = 120m;
 

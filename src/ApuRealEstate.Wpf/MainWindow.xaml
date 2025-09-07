@@ -1,12 +1,64 @@
-﻿<Window x:Class="ApuRealEstate.wpf.MainWindow"
+﻿<Window x:Class="ApuRealEstate.Wpf.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ApuRealEstate.wpf"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Apu Real Estate" Height="600" Width="900">
+    <Grid Margin="16">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
 
+        <!-- Left: list -->
+        <DockPanel Grid.Column="0">
+            <Button Content="Load demo data"
+                    Command="{Binding LoadDemoCommand}"
+                    Margin="0,0,0,8"
+                    DockPanel.Dock="Top"/>
+            <ListView ItemsSource="{Binding Estates}"
+                      SelectedItem="{Binding Selected}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Margin="4">
+                            <TextBlock Text="{Binding Id}" FontWeight="SemiBold"/>
+                            <TextBlock Text=" · " />
+                            <TextBlock Text="{Binding Address.City}"/>
+                            <TextBlock Text=", "/>
+                            <TextBlock Text="{Binding Address.Country}"/>
+                            <TextBlock Text=" · "/>
+                            <TextBlock Text="{Binding SquareMeters}"/>
+                            <TextBlock Text=" m²"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </DockPanel>
+
+        <!-- Right: details -->
+        <Border Grid.Column="1" Padding="16" BorderBrush="#DDD" BorderThickness="1" CornerRadius="6">
+            <!-- Set DataContext as an attribute (not a mid-content property element) -->
+            <StackPanel DataContext="{Binding Selected}">
+                <TextBlock Text="Details" FontSize="20" FontWeight="Bold" Margin="0,0,0,8"/>
+
+                <TextBlock Text="{Binding Id, FallbackValue=Select an item}" FontSize="16" FontWeight="SemiBold"/>
+                <TextBlock Text="{Binding Address.Street}" />
+                <TextBlock>
+                    <Run Text="{Binding Address.ZipCode}" /><Run Text=" "/>
+                    <Run Text="{Binding Address.City}" />
+                </TextBlock>
+                <TextBlock Text="{Binding Address.Country}" />
+                <Separator Margin="0,8,0,8"/>
+
+                <TextBlock Text="{Binding SquareMeters, StringFormat='{}{0} m²'}" />
+                <TextBlock Text="{Binding NumOfRooms, StringFormat='Rooms: {0}'}" />
+                <TextBlock Text="{Binding LegalForm}" />
+                <Separator Margin="0,8,0,8"/>
+
+                <!-- Bind to a PROPERTY, not a method -->
+                <!-- Option A: numeric property with formatting -->
+                <TextBlock Text="{Binding AccommodationCostPerMonth, StringFormat='{}{0:C}/month'}"
+                           FontWeight="SemiBold"/>
+                <!-- Option B (if you add it): <TextBlock Text="{Binding AccommodationCostText}"/> -->
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>

@@ -6,7 +6,7 @@ namespace ApuRealEstate.Residentials
     /// Represents a rowhouse (terraced house). Inherits Villa behavior but applies a lower rate
     /// and an additional small HOA/community fee per month.
     /// </summary>
-    internal sealed class Rowhouse : Villa
+    public sealed class Rowhouse : Villa
     {
         private const decimal RowhouseRatePerSquareMeter = 100m; // a bit lower than Villa
         private const decimal HoaMonthlyFee = 750m;

@@ -1,23 +1,21 @@
 ﻿using System.Globalization;
 using ApuRealEstate.Estate;
 
-namespace ApuRealEstate.Institutionals
+namespace ApuRealEstate.Commercials
 {
     /// <summary>
-    /// Base class for all institutional estates (e.g. schools, hospitals, universities).
-    /// Locks the estate category to <see cref="Category.Institutional"/> 
-    /// and provides a shared cost model (m² * rate).
+    /// Base class for all commercial estates. Each subtype supplies its own m²-rate.
     /// </summary>
-    internal abstract class Institutional : Estate.Estate
+    public abstract class Commercial : Estate.Estate
     {
         /// <summary>
-        /// Each subtype must specify its own monthly rate per m².
+        /// Each commercial subtype must provide its monthly price per m².
         /// </summary>
         protected abstract decimal CostPerSquareMeterPerMonth { get; }
 
-        protected Institutional() : base() { }
+        protected Commercial() : base() { }
 
-        protected Institutional(
+        protected Commercial(
             string id,
             Address address,
             int squareMeters,
@@ -28,20 +26,17 @@ namespace ApuRealEstate.Institutionals
             : base(id, address, squareMeters, numOfRooms, legalForm, imagePath, seller) { }
 
         /// <summary>
-        /// Numeric monthly accommodation cost (m² * subtype's rate).
+        /// Numeric monthly cost (shared formula): m² * rate.
         /// </summary>
         public override decimal AccommodationCostPerMonth
             => SquareMeters * CostPerSquareMeterPerMonth;
 
         /// <summary>
-        /// Formatted cost string, culture-aware.
+        /// Formatted monthly cost using the numeric value.
         /// </summary>
         public override string AccommodationCost()
             => FormatMonthlyCost(AccommodationCostPerMonth);
 
-        /// <summary>
-        /// Helper for consistent cost formatting.
-        /// </summary>
         protected static string FormatMonthlyCost(decimal amount, CultureInfo? culture = null)
             => string.Create(culture ?? CultureInfo.CurrentCulture, $"{amount:C}/month");
     }
